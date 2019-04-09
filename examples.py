@@ -14,7 +14,7 @@ email = Email(
     secure=True
 )
 # For send from localhost without password
-email = Email(from_email='mybox@mail.com')
+#email = Email(from_email='mybox@mail.com')
 email.send('other@mail.com', 'Subject', 'Message')
 
 # SMS transport
@@ -26,5 +26,5 @@ sms = SMS(
 )
 # Title and message will be concatenate with ':' and newline
 sms.send('79407775544', u'Title', u'Message')
-# Withot title
+# Without title
 sms.send('79407775544', False, u'Message')
