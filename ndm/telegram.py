@@ -1,24 +1,29 @@
 # -*- coding: utf-8 -*-
-import logging
-import requests
-from ndm.transport import AbstractTransport
 from ndm.exceptions import TelegramAPIException
-#logging.basicConfig(level='DEBUG')
+from ndm.transport import AbstractTransport
+
+import requests
+
+# import logging
+# logging.basicConfig(level='DEBUG')
 
 
 class Telegram(AbstractTransport):
     """ Telegram transport """
     name = 'Telegram'
     api_url = 'https://api.telegram.org'
-    conn_timeout = 3  # connection timeout, sec
-    read_timeout = 10 # read data timeout, sec
+    conn_timeout = 3   # connection timeout, sec
+    read_timeout = 10  # read data timeout, sec
 
-    def __init__(self, api_key):
+    def __init__(self, api_key, api_url=None):
         """
         Create telegram transport instance
         :param str api_key: telegram bot API key
+        :param str api_url: (optional) base API URL
         """
         self.api_key = api_key
+        if api_url:
+            self.api_url = api_url
 
     def send(self, recepient, title, message):
         """
@@ -35,9 +40,8 @@ class Telegram(AbstractTransport):
             'chat_id': recepient,
             'text': '<b>%s</b>:\n%s' % (title, message)
         }
-        response = requests.post(url=url, data=data,
-            timeout=(self.conn_timeout, self.read_timeout)
-        )
+        response = requests.post(
+            url=url, data=data, timeout=(self.conn_timeout, self.read_timeout))
         if response.ok:
             rdata = response.json()
             if 'ok' in rdata.keys() and rdata['ok']:

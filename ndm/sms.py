@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
 import logging
-import smpplib.gsm
+
+from ndm.exceptions import SendSMSException
+from ndm.transport import AbstractTransport
+
 import smpplib.client
 import smpplib.consts
-from ndm.transport import AbstractTransport
-from ndm.exceptions import SendSMSException
+import smpplib.gsm
+
 logging.basicConfig(level='INFO')
 
 
@@ -51,16 +54,17 @@ class SMS(AbstractTransport):
         if title:
             text = '%s:\n%s' % (title, message)
         else:
-            text= message
+            text = message
         parts, encoding_flag, msg_type_flag = smpplib.gsm.make_parts(text)
         try:
             client = smpplib.client.Client(self.host, self.port)
             client.connect()
             if self.auth_pair:
-                client.bind_transceiver(system_id=self.login, 
+                client.bind_transceiver(
+                    system_id=self.login,
                     password=self.passwd)
             for part in parts:
-                pdu = client.send_message(
+                client.send_message(
                     source_addr_ton=smpplib.consts.SMPP_TON_ALNUM,
                     source_addr_npi=smpplib.consts.SMPP_NPI_UNK,
                     source_addr=self.source,

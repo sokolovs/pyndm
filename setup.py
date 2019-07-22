@@ -8,7 +8,7 @@ setup(
     author='Sergey V. Sokolov',
     author_email='sergey.sokolov@air-bit.eu',
     url='https://github.com/sokolovs/pyndm',
-    packages=['ndm',],
+    packages=['ndm'],
     install_requires=[
         'requests==2.21.0',
         'smpplib==2.0',

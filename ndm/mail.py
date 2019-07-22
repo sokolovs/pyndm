@@ -1,11 +1,14 @@
 # -*- coding: utf-8 -*-
-import logging
-import smtplib, ssl
-from email.mime.text import MIMEText
+import smtplib
+
 from email.mime.multipart import MIMEMultipart
-from ndm.transport import AbstractTransport
+from email.mime.text import MIMEText
+
 from ndm.exceptions import SendMailException
-#logging.basicConfig(level='DEBUG')
+from ndm.transport import AbstractTransport
+
+# import logging
+# logging.basicConfig(level='DEBUG')
 
 
 class Email(AbstractTransport):
@@ -13,8 +16,9 @@ class Email(AbstractTransport):
     name = 'Email'
     timeout = 5
 
-    def __init__(self, from_email, host='localhost', port=25, 
-        auth_pair=None, secure=False):
+    def __init__(
+            self, from_email, host='localhost', port=25,
+            auth_pair=None, secure=False):
         """
         Create email transport instance
         :param str from_email: sender email
@@ -36,7 +40,7 @@ class Email(AbstractTransport):
     def send(self, recepient, title, message):
         """
         Send notification to recepient
-        :param str recepient: message recepient ID (email or 
+        :param str recepient: message recepient ID (email or
             comma-separated list of email)
         :param str title: email subject
         :param str message: email text
@@ -64,7 +68,8 @@ class Email(AbstractTransport):
 
             # Create mime parts
             text_part = MIMEText(message, 'plain', 'utf-8')
-            html_part = MIMEText(u'<p><b>%s:</b><br/>%s</p>' % \
+            html_part = MIMEText(
+                u'<p><b>%s:</b><br/>%s</p>' %
                 (title, message), 'html', 'utf-8')
             msg.attach(text_part)
             msg.attach(html_part)
@@ -76,5 +81,5 @@ class Email(AbstractTransport):
             raise SendMailException(e)
         finally:
             if server:
-                server.quit() 
+                server.quit()
         return False

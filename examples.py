@@ -3,18 +3,21 @@ from ndm import *
 
 # Telegram transport
 tlg = Telegram(api_key='648160995:AaG40neCoWX8BB6V7Wh1ELK-uR4pdgTTWxX')
+# tlg = Telegram(
+#     api_key='648160995:AaG40neCoWX8BB6V7Wh1ELK-uR4pdgTTWxX',
+#     api_url='http://proxy-addr.net:18080')
 tlg.send('183327952', 'Title', 'Message')
 
 # Email transport
 email = Email(
-    from_email='mybox@mail.com', 
+    from_email='mybox@mail.com',
     host='smtp.mail.com',
     port=465,
     auth_pair=('mybox@mail.com', 'mypass'),
     secure=True
 )
 # For send from localhost without password
-#email = Email(from_email='mybox@mail.com')
+# email = Email(from_email='mybox@mail.com')
 email.send('other@mail.com', 'Subject', 'Message')
 
 # SMS transport
