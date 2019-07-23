@@ -13,17 +13,24 @@ class Telegram(AbstractTransport):
     name = 'Telegram'
     api_url = 'https://api.telegram.org'
     conn_timeout = 3   # connection timeout, sec
-    read_timeout = 10  # read data timeout, sec
+    read_timeout = 30  # read data timeout, sec
 
-    def __init__(self, api_key, api_url=None):
+    def __init__(
+            self, api_key, api_url=None, conn_timeout=None, read_timeout=None):
         """
         Create telegram transport instance
         :param str api_key: telegram bot API key
         :param str api_url: (optional) base API URL
+        :param int conn_timeout: (optional) connection timeout
+        :param int read_timeout: (optional) response read timeout
         """
         self.api_key = api_key
         if api_url:
             self.api_url = api_url
+        if conn_timeout and isinstance(conn_timeout, int):
+            self.conn_timeout = conn_timeout
+        if read_timeout and isinstance(read_timeout, int):
+            self.read_timeout = read_timeout
 
     def send(self, recepient, title, message):
         """
