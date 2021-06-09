@@ -32,10 +32,10 @@ class Telegram(AbstractTransport):
         if read_timeout and isinstance(read_timeout, int):
             self.read_timeout = read_timeout
 
-    def send(self, recepient, title, message):
+    def send(self, recipient, title, message):
         """
-        Send notification to recepient
-        :param str recepient: message recepient ID (Telegram chat ID)
+        Send notification to recipient
+        :param str recipient: message recipient ID (Telegram chat ID)
         :param str title: title for message
         :param str message: short text message
         :raise TelegramAPIException: telegram API exception
@@ -44,7 +44,7 @@ class Telegram(AbstractTransport):
         url = '%s/bot%s/sendMessage' % (self.api_url, self.api_key)
         data = {
             'parse_mode': 'HTML',
-            'chat_id': recepient,
+            'chat_id': recipient,
             'text': '<b>%s</b>:\n%s' % (title, message)
         }
         response = requests.post(

@@ -9,10 +9,10 @@ class AbstractTransport:
     def __init__(self, *args, **kwargs):
         pass
 
-    def send(self, recepient, title, message):
+    def send(self, recipient, title, message):
         """
-        Sed notification to recepient
-        :param str recepient: recepient ID for transport
+        Sed notification to recipient
+        :param str recipient: recipient ID for transport
         :param str title: title for message
         :param str message: short text message
         """

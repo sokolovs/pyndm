@@ -33,16 +33,16 @@ class SMS(AbstractTransport):
         if auth_pair:
             self.login, self.passwd = auth_pair
 
-    def send(self, recepient, title, message):
+    def send(self, recipient, title, message):
         """
-        Send notification to recepient
-        :param str recepient: phone number
+        Send notification to recipient
+        :param str recipient: phone number
         :param str title: title for message (including in SMS)
         :param str message: short text message
         """
         # Replace bad symbols in phone
         for char in '+()- ':
-            recepient = recepient.replace(char, '')
+            recipient = recipient.replace(char, '')
 
         # Convert to unicode
         if type(title) != str:
@@ -70,7 +70,7 @@ class SMS(AbstractTransport):
                     source_addr=self.source,
                     dest_addr_ton=smpplib.consts.SMPP_TON_INTL,
                     dest_addr_npi=smpplib.consts.SMPP_NPI_ISDN,
-                    destination_addr=recepient,
+                    destination_addr=recipient,
                     short_message=part,
                     data_coding=encoding_flag,
                     esm_class=msg_type_flag
