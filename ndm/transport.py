@@ -2,7 +2,7 @@
 from ndm.exceptions import *
 
 
-class AbstractTransport(object):
+class AbstractTransport:
     """
     Abstraction for construct real transport
     """

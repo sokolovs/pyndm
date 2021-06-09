@@ -45,9 +45,9 @@ class SMS(AbstractTransport):
             recepient = recepient.replace(char, '')
 
         # Convert to unicode
-        if type(title) != unicode:
+        if type(title) != str:
             title = title.decode('utf-8')
-        if type(message) != unicode:
+        if type(message) != str:
             message = message.decode('utf-8')
 
         client = None

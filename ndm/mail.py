@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import smtplib
-
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
@@ -47,9 +46,9 @@ class Email(AbstractTransport):
         :raise SendMailException: send exception
         """
         # Convert to unicode
-        if type(title) != unicode:
+        if type(title) != str:
             title = title.decode('utf-8')
-        if type(message) != unicode:
+        if type(message) != str:
             message = message.decode('utf-8')
 
         server = None
@@ -69,7 +68,7 @@ class Email(AbstractTransport):
             # Create mime parts
             text_part = MIMEText(message, 'plain', 'utf-8')
             html_part = MIMEText(
-                u'<p><b>%s:</b><br/>%s</p>' %
+                '<p><b>%s:</b><br/>%s</p>' %
                 (title, message), 'html', 'utf-8')
             msg.attach(text_part)
             msg.attach(html_part)
