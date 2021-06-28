@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import smtplib
-
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
@@ -37,19 +36,19 @@ class Email(AbstractTransport):
             self.login, self.passwd = auth_pair
         self.secure = secure
 
-    def send(self, recepient, title, message):
+    def send(self, recipient, title, message):
         """
-        Send notification to recepient
-        :param str recepient: message recepient ID (email or
+        Send notification to recipient
+        :param str recipient: message recipient ID (email or
             comma-separated list of email)
         :param str title: email subject
         :param str message: email text
         :raise SendMailException: send exception
         """
         # Convert to unicode
-        if type(title) != unicode:
+        if type(title) != str:
             title = title.decode('utf-8')
-        if type(message) != unicode:
+        if type(message) != str:
             message = message.decode('utf-8')
 
         server = None
@@ -64,18 +63,18 @@ class Email(AbstractTransport):
             msg = MIMEMultipart('alternative')
             msg['Subject'] = title
             msg['From'] = self.from_email
-            msg['To'] = recepient
+            msg['To'] = recipient
 
             # Create mime parts
             text_part = MIMEText(message, 'plain', 'utf-8')
             html_part = MIMEText(
-                u'<p><b>%s:</b><br/>%s</p>' %
+                '<p><b>%s:</b><br/>%s</p>' %
                 (title, message), 'html', 'utf-8')
             msg.attach(text_part)
             msg.attach(html_part)
 
             # Send
-            server.sendmail(self.from_email, recepient, msg.as_string())
+            server.sendmail(self.from_email, recipient, msg.as_string())
             return True
         except Exception as e:
             raise SendMailException(e)

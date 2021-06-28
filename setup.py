@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from distutils.core import setup
+from setuptools import setup
 
 setup(
     name='pyndm',
@@ -10,7 +10,7 @@ setup(
     url='https://github.com/sokolovs/pyndm',
     packages=['ndm'],
     install_requires=[
-        'requests==2.21.0',
-        'smpplib==2.0',
+        'requests==2.25.1',
+        'smpplib==2.1.0',
     ],
 )
