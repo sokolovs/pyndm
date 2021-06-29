@@ -9,7 +9,6 @@ pip install --upgrade git+https://github.com/sokolovs/pyndm.git
 
 ### Example:
 ```python
-# -*- coding: utf-8 -*-
 from ndm import *
 
 # Telegram transport
@@ -36,7 +35,7 @@ sms = SMS(
     auth_pair=('smpp_system_id', 'password')
 )
 # Title and message will be concatenate with ':' and newline
-sms.send('79407775544', u'Title', u'Message')
+sms.send('79407775544', 'Title', 'Message')
 # Without title
-sms.send('79407775544', False, u'Message')
+sms.send('79407775544', False, 'Message')
 ```
