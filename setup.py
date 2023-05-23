@@ -10,7 +10,7 @@ setup(
     url='https://github.com/sokolovs/pyndm',
     packages=['ndm'],
     install_requires=[
-        'requests==2.25.1',
+        'requests==2.31.0',
         'smpplib==2.1.0',
     ],
 )
